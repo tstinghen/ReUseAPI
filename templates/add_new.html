@@ -1,0 +1,51 @@
+﻿
+
+<hr />
+<h3>Create a new category.</h3>
+
+<form action = "/add_new" method = "post"> 
+	<input type = "hidden" name = "form_id" value = "add_category">
+    Category: <input type="text" name="name">
+    <input type="submit" class="btn btn-info btn-xs" btn value="Submit">
+    <br />
+    <h4>Associated Items</h4>
+	<p>
+   {%if items|length > 0 %}
+	<select multiple size= "5" name="add_items[]">
+	{% for it in items %}
+	<option value="{{it.key}}">{{it.name}}</option>
+	{% endfor %}
+	</select>
+	<br><br>
+	{% endif %}
+	</p>
+    <hr/>   
+   <br />
+  </form>
+<form action = "/add_new" method = "post"> 
+	<h3>Create a New Item </h3>
+	<input type = "hidden" name = "form_id" value = "add_item">
+
+	Item: <input type="text" name="name">
+	<input type="submit" class="btn btn-info btn-xs" btn value="Submit">
+	<br />
+	<h4>Category:</h4>
+	   {%if categories|length > 0 %}
+	   <select name="add_category[]">
+	{% for cat in categories %}
+	<option value="{{cat.key}}">{{cat.name}}</option>
+	{% endfor %}
+	</select>
+	<br><br>
+	{% endif %}
+	<h4>Associated Businesses:</h4>
+	   {%if businesses|length > 0 %}
+	 <select multiple size= "5" name="add_businesses[]">
+	{% for bus in businesses %}
+	<option value="{{bus.key}}">{{bus.name}}</option>
+	{% endfor %}
+	</select>
+	<br><br>
+	{% endif %}
+	<h
+</form>

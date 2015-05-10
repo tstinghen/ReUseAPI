@@ -8,7 +8,6 @@ import json
 class Business(webapp2.RequestHandler): 
 	def post(self): 
 	
-		self.response.write("I am working")
 	#creates an Item entity 
 	#this never fires... what the heck. 
 		if 'application/json' not in self.request.accept: 
@@ -21,9 +20,9 @@ class Business(webapp2.RequestHandler):
 	#get name from the http data 
 		name = self.request.get('name', default_value = None)
 	#get all items from list of item keys \
-		phone = self.request.get('name', default_value = None)
-		website = self.request.get('name', default_value = None)
-		address = self.request.get('name', default_value = None)
+		phone = self.request.get('phone', default_value = None)
+		website = self.request.get('website', default_value = None)
+		address = self.request.get('address', default_value = None)
 		items = self.request.get_all('items[]', default_value = None)
 
 
@@ -83,7 +82,7 @@ class Business(webapp2.RequestHandler):
 		slist = []
 #for each item in Item, create a dictionary with the key and name
 		for s in busses: 
-			results = {'id' : s.key.id(), 'name' : s.name, 'phone' : s.phone, 'address' : s.address, 'website' : s.website, 'items': s.items} 
+			results = {'id' : s.key.id(), 'name' : s.name, 'phone' : s.phone, 'address' : s.address, 'website' : s.website} 
 			slist.append(results)
 #write out the dictionary in JSON format 
 		self.response.write(json.dumps(slist)) 
