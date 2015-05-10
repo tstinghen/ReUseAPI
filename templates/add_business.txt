@@ -1,0 +1,75 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+
+<h3>Add a New Reuse Business. </h3>
+<form role="form">
+    <div class="form-group">
+        <label for="name">Business name:</label>
+        <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+        <label for="name">Phone:</label>
+        <input type="text" class="form-control" id="phone">
+    </div>
+    <div class="form-group">
+        <label for="name">Address:</label>
+        <input type="text" class="form-control" id="address">
+    </div>
+    <div class="form-group">
+        <label for="name">Website:</label>
+        <input type="text" class="form-control" id="website">
+    </div>
+    <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+       
+    <button type="submit" class="btn btn-info">Create</button>
+</form>
+
+<h4>Associated Items</h4>
+<p>put jinja vars to generate a list of checkboxes for existing items</p>
+
+<hr />
+<h3>Edit a Reuse Business. </h3>
+
+<form role="form">
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-info btn-xs">Find</button>
+        <label for="name">Business name:</label>
+        <input type="text" class="form-control" id="name">
+
+    </div>
+    <hr />
+
+    Edit: 
+    <div class="form-group">
+        <label for="name">Business name:</label>
+        <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+        <label for="name">Phone:</label>
+        <input type="text" class="form-control" id="phone">
+    </div>
+    <div class="form-group">
+        <label for="name">Address:</label>
+        <input type="text" class="form-control" id="address">
+    </div>
+    <div class="form-group">
+        <label for="name">Website:</label>
+        <input type="text" class="form-control" id="website">
+    </div>
+    <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+
+    <button type="submit" class="btn btn-info">Save Changes</button>
+</form>
+
+{% endblock %}

@@ -9,6 +9,7 @@ application = webapp2.WSGIApplication([
 	(r'/business', 'business.Business'),
 	(r'/', 'front.Front'), 
 	(r'/add_new', 'add_new.MainPage'),
+	(r'/add_business', 'add_business.MainPage'),
 ], debug=True)
  
  

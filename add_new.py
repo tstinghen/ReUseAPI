@@ -64,8 +64,7 @@ class MainPage(webapp2.RequestHandler):
 			render(self, 'success.html', {'message': 'Success: Saved results for ' + new_cat.name + ' to the database'})
 
 		if form_id == 'add_item' : 
-			k = ndb.Key(db_defs.Item, 'item_group')
-			new_item = db_defs.Item(parent=k)
+			new_item = db_defs.Item()
 			new_item.name = self.request.get('name')
 			category = self.request.get_all('add_category[]')
 			businesses = self.request.get_all('add_businesses[]')
@@ -101,5 +100,5 @@ class MainPage(webapp2.RequestHandler):
 					this_bus.items.append(item_key)
 					this_bus.put()
 				
-			render(self, 'success.html', {'message': 'Success: Saved results for ' + str(this_bus) + ' to the database'})
+			render(self, 'success.html', {'message': 'Success: Saved results for ' + str(this_bus) + ' to the database', 'return': '/add_new'})
 					
