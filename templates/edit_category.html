@@ -1,0 +1,30 @@
+<h3>Edit Category</h3>
+
+<form action = "/edit_category?key={{urlsafe_key}}&type=category"  method = "post"> 
+	<input type = "hidden" name = "form_id" value = "edit_category">
+    Category: <input type="text" name="name" value = {{name}}>
+    <input type="submit" class="btn btn-info btn-xs" btn value="Submit">
+    <br />
+    <h4>Associated Items</h4>
+	<p>
+   {%if all_items|length > 0 %}
+	<select multiple size= "5" name="add_items[]">
+		{% for it in all_items %}
+			<option value="{{it.key}}" 
+				{%for it2 in cat_items%} 
+					{% if it2 == it %} 
+						selected="true"
+					{% endif %}
+				{% endfor%} 
+
+			>{{it.name}}</option>
+		{% endfor %}
+	
+	</select>
+	<br><br>
+	{% endif %}
+	</p>
+
+    <hr/>   
+   <br />
+  </form>

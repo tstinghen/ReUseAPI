@@ -87,3 +87,41 @@ class Business(webapp2.RequestHandler):
 #write out the dictionary in JSON format 
 		self.response.write(json.dumps(slist)) 
 
+		
+class BusinessesByItem(webapp2.RequestHandler):
+	def post(self): 
+		if 'application/json' not in self.request.accept: 
+			self.response.status = 406 
+			self.response.status_message = "API only supports json type" 
+			return 
+			
+		item = db_defs.Item() 
+		
+		item_id = self.request.get('id', default_value = None)
+		
+		if item_id is None: 
+			loaded_data = json.loads(self.request.body)
+			item_id = loaded_data['id']
+			
+		
+		if item_id is not None: 
+		
+			item_obj = ndb.Key(db_defs.Item, int(item_id))
+			
+			q = db_defs.Business.query() 
+			q = q.filter(db_defs.Business.items == item_obj)
+			
+			
+			business_results = q.fetch()
+	
+					
+			rlist = []
+			for r in business_results: 
+				
+				results = {'id' : r.key.id(), 'name' : r.name, 'phone' : r.phone, 'website' : r.website, 'address' : r.address} 
+				rlist.append(results)
+			
+			self.response.write(json.dumps(rlist)) 
+
+		return 
+

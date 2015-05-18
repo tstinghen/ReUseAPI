@@ -75,3 +75,80 @@ class Item(webapp2.RequestHandler):
 #write out the dictionary in JSON format 
 		self.response.write(json.dumps(slist)) 
 
+
+		
+class ItemsByCategory(webapp2.RequestHandler):
+	def post(self): 
+		if 'application/json' not in self.request.accept: 
+			self.response.status = 406 
+			self.response.status_message = "API only supports json type" 
+			return 
+			
+		category = db_defs.Category() 
+		
+		category_id = self.request.get('id', default_value = None)
+		
+		if category_id is None: 
+			loaded_data = json.loads(self.request.body)
+			category_id = loaded_data['id']
+			
+		
+		if category_id is not None: 
+		
+			category_obj = ndb.Key(db_defs.Category, int(category_id))
+			
+			q = db_defs.Item.query() 
+			q = q.filter(db_defs.Item.category == category_obj)
+			## Change this line so that it gets the user associated with username ##
+			
+			item_results = q.fetch()
+			
+			
+					
+			rlist = []
+			for r in item_results: 
+				
+				results = {'id' : r.key.id(), 'name' : r.name} 
+				rlist.append(results)
+			
+			self.response.write(json.dumps(rlist)) 
+
+		return 
+		
+class ItemsByBusiness(webapp2.RequestHandler):
+	def post(self): 
+		if 'application/json' not in self.request.accept: 
+			self.response.status = 406 
+			self.response.status_message = "API only supports json type" 
+			return 
+			
+		business = db_defs.Business() 
+		
+		business_id = self.request.get('id', default_value = None)
+		
+		if business_id is None: 
+			loaded_data = json.loads(self.request.body)
+			business_id = loaded_data['id']
+			
+		
+		if business_id is not None: 
+		
+			business_obj = ndb.Key(db_defs.Business, int(business_id))
+			
+			q = db_defs.Item.query() 
+			q = q.filter(db_defs.Item.businesses == business_obj)
+			## Change this line so that it gets the user associated with username ##
+			
+			item_results = q.fetch()
+			
+			
+					
+			rlist = []
+			for r in item_results: 
+				
+				results = {'id' : r.key.id(), 'name' : r.name} 
+				rlist.append(results)
+			
+			self.response.write(json.dumps(rlist)) 
+
+		return 

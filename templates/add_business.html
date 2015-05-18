@@ -22,12 +22,12 @@
        
 
 
-  <h4>Associated Items</h4>
+  <h4>Associated Item Categories</h4>
 	<p>
-   {%if items|length > 0 %}
-	<select multiple size= "5" name="add_items[]">
-	{% for it in items %}
-	<option value="{{it.key}}">{{it.name}}</option>
+   {%if categories|length > 0 %}
+	<select multiple size= "20" name="add_categories[]">
+	{% for cat in categories %}
+	<option value="{{cat.key}}">{{cat.name}}</option>
 	{% endfor %}
 	</select>
 	<br><br>

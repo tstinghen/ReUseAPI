@@ -1,0 +1,33 @@
+
+View All Objects
+{%if items|length > 0 %}
+	<fieldset> 
+	<h4>Items </h4> 
+	{% for it in items %}
+	<a href='/edit_item?key={{it.key}}&type=item'>{{it.name}}</a><br/>
+	{% endfor %}
+	</fieldset> 
+	<br><br>
+	{% endif %}
+
+	{%if categories|length > 0 %}
+	<fieldset> 
+	<h4>Categories </h4> 
+	{% for cat in categories %}
+	<a href='/edit_category?key={{cat.key}}&type=category'>{{cat.name}}</a><br/>
+	{% endfor %}
+	</fieldset> 
+	<br><br>
+	{% endif %}
+
+	{%if businesses|length > 0 %}
+	<fieldset> 
+	<h4>Businesses</h4> 
+	{% for bus in businesses %}
+	<a href='/edit_business?key={{bus.key}}&type=business'>{{bus.name}}</a><br/>
+	{% endfor %}
+	</fieldset> 
+	<br><br>
+	{% endif %}
+	
+	

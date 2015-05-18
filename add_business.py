@@ -19,7 +19,7 @@ def render(self, template, template_variables={}):
 
 def set_temp_vals(self):
 	template_variables['items'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Item.query().fetch()]
-	#template_variables['categories'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Category.query().fetch()]
+	template_variables['categories'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Category.query().fetch()]
 	#template_variables['businesses'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Business.query().fetch()]
 	return template_variables 
 	
@@ -41,23 +41,42 @@ class MainPage(webapp2.RequestHandler):
 		new_bus.website = self.request.get('website')
 		
 		items = self.request.get_all('add_items[]')
+		categories = self.request.get_all('add_categories[]')
 
-		if items: 
-		#for each item being added, append its Item object to the list of items
+		# if items: 
+		# for each item being added, append its Item object to the list of items
 			
-			for it in items: 
-				item_key = ndb.Key(db_defs.Item, int(it))
-				new_bus.items.append(item_key)
+			# for it in items: 
+				# item_key = ndb.Key(db_defs.Item, int(it))
+				# new_bus.items.append(item_key)
 
+		if categories: 
+		
+			for c in categories: 
+				cat_obj = ndb.Key(db_defs.Category, int(c)) 
+				q = db_defs.Item.query()
+				q = q.filter(db_defs.Item.category == cat_obj)
+				cat_items = q.fetch() 
+				
+
+				for i in cat_items: 
+					new_bus.items.append(i.key)
+					
+				
+		
+		
 		bus_key = new_bus.put() 
 		
-		if items: 
-		#for each item being added, append its Item object to the list of items
-			
-			for i in items: 
-				it_key = ndb.Key(db_defs.Item, int(i))					
-				add_item = it_key.get() 
-				add_item.businesses.append(bus_key)
-				add_item.put()
+		if categories: 
+		
+			for c in categories: 
+				cat_obj = ndb.Key(db_defs.Category, int(c)) 
+				q = db_defs.Item.query()
+				q = q.filter(db_defs.Item.category == cat_obj)
+				cat_items = q.fetch() 
 				
-		render(self, 'success.html',{'message': 'Success: Saved results for ' + str(add_item) + ' to the database', 'return': '/add_business'})
+				for i in cat_items:
+					i.businesses.append(bus_key)
+					i.put()
+				
+		render(self, 'success.html',{'message': 'Success: Saved results for ' + new_bus.name + ' to the database', 'return': '/add_business'})
