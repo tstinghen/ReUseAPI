@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Success</title>
+    <title>Edit Item</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
@@ -30,26 +30,51 @@
                     <li><a href="add_new">New Item/Category</a></li>
                     <li><a href="view">View All</a></li>
                     <li><a href="logout">Log Out</a></li>
+					
                 </ul>
             </div>
         </div>
-		
  </div>
 <!-- end NavBar --> 
 
-<body>
+ <div class="container">
+ <div class="jumbotron">
+<h2>Edit an Item </h2>
+<p>Here's where you can Edit an Item 
+	that a ReUse organization 
+	handles. </p>
+</div><!-- end jumbtron -->
 
-<div class="container">
-	<div class="jumbotron">
-		<h3>Request Submitted</h3> <br>
+<h3>Edit Item</h3>
 
-			<fieldset> 
-				{{message}}
-				<br>
-				<a href="index">Go Back</a>
-			</fieldset> 
+<form action = "/edit_item?key={{urlsafe_key}}&type=item"  method = "post"> 
+	<input type = "hidden" name = "form_id" value = "edit_category">
+    Item: <input type="text" name="name" value = {{name}}>
+    <input type="submit" class="btn btn-info btn-xs" btn value="Submit">
+    <br />
+    <h4>Category</h4>
+	<p>
+   {%if all_cats|length > 0 %}
+	<select  name="add_category">
+		{% for cat in all_cats |sort(attribute='name')%}
+			<option value="{{cat.key}}" 
+				{% for c in category %}
+					{% if cat.obj == c %} 
+						selected
+					{% endif %}
+				{% endfor %}
 
-	</div><!-- end jumbtron -->
-</div> <!-- end container -->
-<body> 
-</html> 
+			>{{cat.name}}</option>
+		{% endfor %}
+	
+	</select>
+	
+	
+	<br><br>
+	{% endif %}
+	
+	</p>
+
+    <hr/>   
+   <br />
+  </form>

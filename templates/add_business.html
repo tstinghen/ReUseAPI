@@ -1,37 +1,96 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Business</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
+    <script src="https:/oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
 
-<h3>Add a New Reuse Business. </h3>
+
+<body>
+ 
+<!-- NavBar -->
+ <div class="navbar navbar-inverse navbar-fixed-top ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index" class="navbar-brand">ReUseIt</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index">Home</a></li>
+                    <li><a href="add_business">New Business</a></li>
+                    <li><a href="add_new">New Item/Category</a></li>
+                    <li><a href="view">View All</a></li>
+                    <li><a href="logout">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+ </div>
+<!-- end NavBar --> 
+
+ <div class="container">
+ <div class="jumbotron">
+<h2>Add a New Reuse Business. </h2>
+<p>Here's where you can add a new business or organization that will
+accept items for reuse. </p>
+</div><!-- end jumbtron -->
+
+<div class="well">
 <form action = "/add_business" method = "post" role = "form"> 
     <div class="form-group">
         <label for="name">Business name:</label>
-        <input type="text" class="form-control" name="name">
-		<button type="submit" class="btn btn-info">Create</button>
-    </div>
+        <input type="text" class="form-control" name="name" placeholder="Enter business name">
+	</div>
     <div class="form-group">
         <label for="name">Phone:</label>
-        <input type="text" class="form-control" name="phone">
+        <input type="text" class="form-control" name="phone" placeholder="Enter phone number">
     </div>
     <div class="form-group">
         <label for="name">Address:</label>
-        <input type="text" class="form-control" name="address">
+        <input type="text" class="form-control" name="address" placeholder="Enter address">
     </div>
     <div class="form-group">
         <label for="name">Website:</label>
-        <input type="text" class="form-control" name="website">
+        <input type="text" class="form-control" name="website" placeholder="Enter Website URL">
     </div>
-       
+    <button type="submit" class="btn btn-info">Create</button>
+    </div>
+    </form>
+    
+    </div><!-- end well -->
+  </div><!-- end container -->     
 
-
-  <h4>Associated Item Categories</h4>
+<div class="container">
+<div class = "well">
+  <h3>Associated Item Categories</h3>
+  <p>A list of the kinds of reusable, repairable items that this business will accept</p>
 	<p>
    {%if categories|length > 0 %}
 	<select multiple size= "20" name="add_categories[]">
-	{% for cat in categories %}
+	{% for cat in categories |sort(attribute='name')%}
 	<option value="{{cat.key}}">{{cat.name}}</option>
 	{% endfor %}
 	</select>
 	<br><br>
 	{% endif %}
 	</p>
-</form>
+
+</div><!-- end well -->
+</div><!-- end container -->
+
+
 <hr />
+<!-- scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

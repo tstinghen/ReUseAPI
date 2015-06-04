@@ -14,7 +14,7 @@ def render(self, template, template_variables={}):
 		template = env.get_template(template)
 		self.response.write(template.render(template_variables))
 ######END REPEATED SECTION#####	
-		
+
 class EditPage(webapp2.RequestHandler):
 	
 	def get(self): 
@@ -32,9 +32,8 @@ class EditPage(webapp2.RequestHandler):
 			template_variables['bus_items'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Item.query().filter(db_defs.Item.businesses == bus_key).fetch()]
 			template_variables['all_items'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Item.query().fetch()]
 			render(self, 'edit_business.html', template_variables)
+
 			
-	
-		
 	def post(self):
 		
 		bus_key = ndb.Key(urlsafe=self.request.get('key'))
@@ -84,7 +83,7 @@ class EditPage(webapp2.RequestHandler):
 		
 		
 
-		render(self, 'success.html', {'message': 'Success: Updated results for ' + str(old_items) + ' in the database'})
+		render(self, 'success.html', {'message': 'Success: Updated results for ' + this_business.name + ' in the database'})
 		
 		
 		

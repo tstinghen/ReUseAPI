@@ -1,15 +1,18 @@
 import webapp2
+import jinja2
 
 
 application = webapp2.WSGIApplication([
 
-
 	(r'/category', 'category.Category'),
 	(r'/edit_category', 'edit_category.EditPage'), 
 	(r'/item', 'item.Item'),
+	(r'/edit_item', 'edit_item.EditPage'),
 	(r'/business', 'business.Business'),
 	(r'/edit_business', 'edit_business.EditPage'), 
-	(r'/', 'front.Front'), 
+	(r'/', 'index.MainPage'), 
+	(r'/index', 'index.MainPage'),
+	(r'/logout', 'index.LogoutHandler'),
 	(r'/add_new', 'add_new.MainPage'),
 	(r'/view', 'view.MainPage'), 
 	(r'/add_business', 'add_business.MainPage'),

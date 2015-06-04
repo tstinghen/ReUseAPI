@@ -1,46 +1,102 @@
-<h3>Edit a Reuse Business. </h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Business</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
+    <script src="bootstrap/js/jquery.js"></script>
+</head>
 
-<form action = "/edit_business?key={{urlsafe_key}}&type=business"  method = "post" >
 
-    <hr />
-<input type = "hidden" name = "form_id" value = "edit_business">
+<body>
+ 
+<!-- NavBar -->
+ <div class="navbar navbar-inverse navbar-fixed-top ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index" class="navbar-brand">ReUseIt</a>-->
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index">Home</a></li>
+                    <li><a href="add_business">New Business</a></li>
+                    <li><a href="add_new">New Item/Category</a></li>
+                    <li><a href="view">View All</a></li>
+                    <li><a href="logout">Log Out</a></li>
+					
+                </ul>
+            </div>
+        </div>
+ </div>
+<!-- end NavBar --> 
+
+ <div class="container">
+ <div class="jumbotron">
+<h2>Edit a ReUse Business. </h2>
+<p>Here's where you can Edit a ReUse business or organization. </p>
+</div><!-- end jumbtron -->
+
+
+<!-- begin form --> 
+<div class="container">
+<div class="well">
+    <form action = "/edit_business?key={{urlsafe_key}}&type=business"  method = "post" >
+
+        <hr />
+    <input type = "hidden" name = "form_id" value = "edit_business">
     Edit: 
-    <div class="form-group">
-        <label for="name">Business name:</label>
-        <input type="text" class="form-control" name = "name" id="name" value = {{name}}>
-    </div>
-    <div class="form-group">
-        <label for="name">Phone:</label>
-        <input type="text" class="form-control" name = "phone" id="phone" value = {{phone}}>
-    </div>
-    <div class="form-group">
-        <label for="name">Address:</label>
-        <input type="text" class="form-control" name = "address" id="address" value = {{address}}>
-    </div>
-    <div class="form-group">
-        <label for="name">Website:</label>
-        <input type="text" class="form-control" name = "website" id="website" value = {{website}}>
-    </div>
-  
-  <h4>Associated Items</h4>
-	<p>
-   {%if all_items|length > 0 %}
-	<select multiple size= "5" name="add_items[]">
-		{% for it in all_items %}
-			<option value="{{it.key}}" 
-				{%for it2 in bus_items%} 
-					{% if it2 == it %} 
-						selected="true"
-					{% endif %}
-				{% endfor%} 
+        <div class="form-group">
+            <label for="name">Business name:</label>
+            <input type="text" class="form-control" name = "name" id="name" value = {{name}}>
+        </div>
+        <div class="form-group">
+            <label for="name">Phone:</label>
+            <input type="text" class="form-control" name = "phone" id="phone" value = {{phone}}>
+        </div>
+        <div class="form-group">
+            <label for="name">Address:</label>
+            <input type="text" class="form-control" name = "address" id="address" value = {{address}}>
+        </div>
+        <div class="form-group">
+            <label for="name">Website:</label>
+            <input type="text" class="form-control" name = "website" id="website" value = {{website}}>
+        </div>
+</div><!-- end well -->
+</div><!-- end container --> 
 
-			>{{it.name}}</option>
-		{% endfor %}
-	
-	</select>
+
+<div class="container">
+<div class="well">
+  
+  <h3>Associated Items</h3>
+	<p>
+        {%if all_items|length > 0 %}
+    	<select multiple size= "20" name="add_items[]">
+    		{% for it in all_items |sort(attribute='name')%}
+    			<option value="{{it.key}}" 
+    				{%for it2 in bus_items%} 
+    					{% if it2 == it %} 
+    						selected="true"
+    					{% endif %}
+    				{% endfor%} 
+
+    			>{{it.name}}</option>
+    		{% endfor %}
+    	
+    	</select>
 	<br><br>
 	{% endif %}
 	
     <input type="submit" class="btn btn-info" value = "Save Changes">
 
-</form>
+    </form>
+
+</div><!-- end well -->
+</div><!-- end container -->

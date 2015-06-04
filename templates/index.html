@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Success</title>
+    <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
-    <script src="bootstrap/js/jquery.js"></script>
+    <script src="https:/oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 
 
@@ -29,27 +30,45 @@
                     <li><a href="add_business">New Business</a></li>
                     <li><a href="add_new">New Item/Category</a></li>
                     <li><a href="view">View All</a></li>
-                    <li><a href="logout">Log Out</a></li>
+                   <li><a href="logout">Log Out</a></li>
+				   
                 </ul>
             </div>
         </div>
-		
  </div>
 <!-- end NavBar --> 
-
-<body>
-
 <div class="container">
-	<div class="jumbotron">
-		<h3>Request Submitted</h3> <br>
+<div class="jumbotron">
+    <h1>ReUse</h1>
+    <p class="lead">
+        ReUse is a web application for participating Corvallis area businesses
+        to add and change ReUse application categories, items and businesses.
+    </p>
+    
+    
+</div>
 
-			<fieldset> 
-				{{message}}
-				<br>
-				<a href="index">Go Back</a>
-			</fieldset> 
+<div class="row">
+    <div class="col-md-4">
+        <h2>New Business</h2>
+        <p>
+            Add new ReUse businesses.
+        </p>
+        <p><a class="btn btn-info" href="add_business">Business &raquo;</a></p>
+    </div>
 
-	</div><!-- end jumbtron -->
-</div> <!-- end container -->
-<body> 
-</html> 
+    <div class="col-md-4">
+        <h2>New Item/Category</h2>
+        <p>Add new items or categories.</p>
+        <p><a class="btn btn-info" href="add_new">New &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>View and Edit</h2>
+        <p>View edit all businesses, items and categories. </p>
+        <p><a class="btn btn-info" href="view">View All &raquo;</a></p>
+    </div>
+</div>
+
+</div><!-- end container -->
+
+

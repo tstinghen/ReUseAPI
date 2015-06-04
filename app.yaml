@@ -6,8 +6,15 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /bootstrap
+  static_dir: bootstrap
+
 - url: /.*
   script: main.application
+  login: required
   
 libraries: 
 - name: webapp2

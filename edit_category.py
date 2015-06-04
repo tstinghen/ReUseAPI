@@ -79,7 +79,7 @@ class EditPage(webapp2.RequestHandler):
 		
 		
 
-		render(self, 'success.html', {'message': 'Success: Updated results for ' + str(old_items) + ' in the database'})
+		render(self, 'success.html', {'message': 'Success: Updated results for ' + category.name + ' in the database'})
 		
 		
 		
