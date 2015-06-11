@@ -12,9 +12,29 @@ handlers:
 - url: /bootstrap
   static_dir: bootstrap
 
-- url: /.*
+- url: /edit_item
   script: main.application
   login: required
+  
+- url: /
+  script: main.application
+  login: required
+  
+- url: /add_new
+  script: main.application
+  login: required
+  
+- url: /view
+  script: main.application
+  login: required
+
+- url: /add_business
+  script: main.application
+  login: required
+  
+- url: /.*
+  script: main.application
+
   
 libraries: 
 - name: webapp2

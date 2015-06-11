@@ -94,20 +94,21 @@ class BusinessesByItem(webapp2.RequestHandler):
 			self.response.status = 406 
 			self.response.status_message = "API only supports json type" 
 			return 
-			
+		#creates a blank item object
 		item = db_defs.Item() 
-		
+		#if getting data from a curl query...
 		item_id = self.request.get('id', default_value = None)
-		
+		#if getting data from JSON, get the item id
 		if item_id is None: 
 			loaded_data = json.loads(self.request.body)
 			item_id = loaded_data['id']
 			
-		
+		#once we have the item id, figure out which item it represents in the DB
 		if item_id is not None: 
 		
 			item_obj = ndb.Key(db_defs.Item, int(item_id))
-			
+		
+		#create a query for businesses that contain that item
 			q = db_defs.Business.query() 
 			q = q.filter(db_defs.Business.items == item_obj)
 			
@@ -117,7 +118,7 @@ class BusinessesByItem(webapp2.RequestHandler):
 					
 			rlist = []
 			for r in business_results: 
-				
+			#returns a list of business objects associated with the item 	
 				results = {'id' : r.key.id(), 'name' : r.name, 'phone' : r.phone, 'website' : r.website, 'address' : r.address} 
 				rlist.append(results)
 			

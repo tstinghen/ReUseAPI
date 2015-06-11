@@ -16,7 +16,7 @@ def render(self, template, template_variables={}):
 ######END REPEATED SECTION#####	
 
 class EditPage(webapp2.RequestHandler):
-	
+	# load the page with the current business data 
 	def get(self): 
 		template_variables = {}
 		if self.request.get('type') == 'business': 
@@ -24,10 +24,7 @@ class EditPage(webapp2.RequestHandler):
 			bus_key = ndb.Key(urlsafe=self.request.get('key'))
 			business = bus_key.get() 
 			
-			# q = db_defs.Item.query() 
-			# q = q.filter(db_defs.Item.business == bus_key)
-			# business_items = q.fetch()
-			
+			#creates variables that are passed into the Jinja/HTML template
 			template_variables = {'urlsafe_key': urlsafekey, 'key': bus_key, 'name': business.name, 'website': business.website, 'phone': business.phone, 'address' : business.address}
 			template_variables['bus_items'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Item.query().filter(db_defs.Item.businesses == bus_key).fetch()]
 			template_variables['all_items'] = [{'name': x.name, 'key': x.key.id()} for x in db_defs.Item.query().fetch()]
@@ -35,9 +32,10 @@ class EditPage(webapp2.RequestHandler):
 
 			
 	def post(self):
-		
+		#gets the key from the form, to update the existing object
 		bus_key = ndb.Key(urlsafe=self.request.get('key'))
 		this_business = bus_key.get()
+		#gets all of the information, whether or not it was edited 
 		this_business.name = self.request.get('name')
 		this_business.phone = self.request.get('phone')
 		this_business.website = self.request.get('website')
@@ -45,10 +43,10 @@ class EditPage(webapp2.RequestHandler):
 		items = self.request.get_all('add_items[]')
 		
 		this_business.put()
-		
+		#gets the list of items currently stored in the business object
 		old_items = this_business.items[:]
 
-		
+		#if there were items entered on the edit form
 		if items: 
 				
 				for it in items: 
@@ -56,18 +54,20 @@ class EditPage(webapp2.RequestHandler):
 					item_obj = item_key.get()
 					
 
-					
+				#if the item was not already associated with the business, add it to the business' items	
 					if item_key not in old_items: 
 						this_business.items.append(item_key)
 						item_obj.businesses.append(bus_key)
 						item_obj.put()
-						
+				#if the item is still associated with the business (no change) delete it from the old items list		
 					if item_key in old_items:
 						old_items.remove(item_key) 
 						
 				
 				
-
+				#for any items that were previously associated but now are not associated 
+				#delete the item from the business 
+				#and also delete the business from the item's business list. 
 				for old in old_items:
 					this_business.items.remove(old) 
 					this_item = old.get() 
@@ -80,9 +80,8 @@ class EditPage(webapp2.RequestHandler):
 			
 			
 		this_business.put() 
-		
-		
 
+		
 		render(self, 'success.html', {'message': 'Success: Updated results for ' + this_business.name + ' in the database'})
 		
 		
